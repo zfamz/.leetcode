@@ -37,7 +37,7 @@ var maxDepth = function (root) {
 }
 // @lc code=end
 
-import { gTree } from './lib/tree.js'
+import { gTree } from '../../lib/tree.js'
 
 let tree = gTree([3, 9, 20, null, null, 15, 7])
 console.log(maxDepth(tree))
