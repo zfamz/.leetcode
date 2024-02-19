@@ -44,6 +44,6 @@ var maxLevelSum = function (root) {
 }
 // @lc code=end
 
-import { gTree } from './lib/tree.js'
+import { gTree } from '../../lib/tree.js'
 
 console.log(maxLevelSum(gTree([1, 7, 0, 7, -8, null, null])))
