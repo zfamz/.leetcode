@@ -7,23 +7,20 @@
 // @lc code=start
 
 var SmallestInfiniteSet = function () {
-  const len = 1000
-  this.set = new Array(len)
+  this.set = []
   this.small = 1
-  for (let i = 0; i < len; i++) {
-    this.set[i] = i + 1
-  }
 }
 
 /**
  * @return {number}
  */
 SmallestInfiniteSet.prototype.popSmallest = function () {
-  const out = this.set.shift()
-  if (out === this.small) {
-    this.small++
+  if (this.set.length) {
+    return this.set.shift()
   }
-  return out
+  const res = this.small
+  this.small++
+  return res
 }
 
 /**
@@ -33,7 +30,7 @@ SmallestInfiniteSet.prototype.popSmallest = function () {
 SmallestInfiniteSet.prototype.addBack = function (num) {
   if (num >= this.small) return
   let index = -1
-  this.set.every((v, i) => {
+  const res = this.set.every((v, i) => {
     if (v === num) return false
     if (v > num) {
       index = i
@@ -41,7 +38,9 @@ SmallestInfiniteSet.prototype.addBack = function (num) {
     }
     return true
   })
-  if (index >= 0) {
+  if (res) {
+    this.set.push(num)
+  } else if (index >= 0) {
     this.set.splice(index, 0, num)
   }
 }
