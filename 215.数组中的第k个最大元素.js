@@ -12,36 +12,43 @@
  */
 
 var findKthLargest = function (nums, k) {
-  let len = nums.length
-  const quickSelect = (arr, start, end) => {
-    if (start >= end) return
+  const siftDown = (arr, index, len) => {
+    const left = index * 2 + 1
+    const right = index * 2 + 2
+    let largest = index
 
-    let l = start
-    let r = end
-    let x = arr[l]
-
-    while (l < r) {
-      while (l < r && arr[r] >= x) r--
-      while (l < r && arr[l] <= x) l++
-      if (l < r) {
-        let temp = arr[l]
-        arr[l] = arr[r]
-        arr[r] = temp
-      }
+    if (left < len && arr[largest] < arr[left]) {
+      largest = left
     }
-    arr[start] = arr[r]
-    arr[r] = x
-
-    let diff = len - l - k
-    if (diff === 0) return
-    diff > 0 ? quickSelect(arr, l + 1, end) : quickSelect(arr, start, l - 1)
+    if (right < len && arr[largest] < arr[right]) {
+      largest = right
+    }
+    if (largest !== index) {
+      ;[arr[largest], arr[index]] = [arr[index], arr[largest]]
+      siftDown(arr, largest, len)
+    }
   }
-  quickSelect(nums, 0, nums.length - 1)
-  return nums[len - k]
+  const buildHeap = (arr, len) => {
+    for (let i = Math.floor(len / 2) - 1; i >= 0; i--) {
+      siftDown(arr, i, len)
+    }
+  }
+  const heapSort = (arr) => {
+    const len = arr.length
+
+    buildHeap(arr, len)
+
+    for (let i = 1; i < k; i++) {
+      ;[arr[0], arr[len - i]] = [arr[len - i], arr[0]]
+      siftDown(arr, 0, len - i)
+    }
+  }
+  heapSort(nums)
+  return nums[0]
 }
 // @lc code=end
-const args = [5, 2, 4, 1, 3, 6, 0]
-console.log(findKthLargest(args, 4))
+const args = [3, 2, 1, 5, 6, 4]
+console.log(findKthLargest(args, 2))
 
 // 最后一个用例超时
 var findKthLargest_1 = function (nums, k) {
