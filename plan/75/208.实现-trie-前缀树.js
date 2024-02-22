@@ -7,7 +7,7 @@
 // @lc code=start
 
 var Trie = function () {
-  this.set = []
+  this.children = {}
 }
 
 /**
@@ -15,7 +15,14 @@ var Trie = function () {
  * @return {void}
  */
 Trie.prototype.insert = function (word) {
-  this.set.push(word)
+  let node = this.children
+  for (const char of word) {
+    if (!node[char]) {
+      node[char] = {}
+    }
+    node = node[char]
+  }
+  node.isEnd = true
 }
 
 /**
@@ -23,7 +30,14 @@ Trie.prototype.insert = function (word) {
  * @return {boolean}
  */
 Trie.prototype.search = function (word) {
-  return this.set.includes(word)
+  let node = this.children
+  for (const char of word) {
+    if (!node[char]) {
+      return false
+    }
+    node = node[char]
+  }
+  return node.isEnd ? true : false
 }
 
 /**
@@ -31,12 +45,14 @@ Trie.prototype.search = function (word) {
  * @return {boolean}
  */
 Trie.prototype.startsWith = function (prefix) {
-  for (let i = 0; i < this.set.length; i++) {
-    if (this.set[i].slice(0, prefix.length) === prefix) {
-      return true
+  let node = this.children
+  for (const char of prefix) {
+    if (!node[char]) {
+      return false
     }
+    node = node[char]
   }
-  return false
+  return true
 }
 
 /**
