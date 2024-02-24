@@ -14,6 +14,10 @@ for (var prop in obj) {
     console.log(`obj.${prop} = ${obj[prop]}`)
   }
 }
+let i = 0
+let arr = [0, 1]
+arr.splice(1, 0, 9)
+console.log(arr)
 
 // Output:
 // "obj.color = red"

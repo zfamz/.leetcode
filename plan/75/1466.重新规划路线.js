@@ -11,8 +11,24 @@
  * @return {number}
  */
 var minReorder = function (n, connections) {
-  let count = 0
-  return count
+  const t = new Array(n).fill(0).map(() => [])
+  for (const edge of connections) {
+    let [from, to] = edge
+    t[from].push([to, 1])
+    t[to].push([from, 0])
+  }
+  let ans = 0
+  const dfs = (index, fa) => {
+    for (const edge of t[index]) {
+      let [i, flag] = edge
+      if (i !== fa) {
+        if (flag) ans++
+        dfs(i, index)
+      }
+    }
+  }
+  dfs(0, -1)
+  return ans
 }
 // @lc code=end
 const args = [
