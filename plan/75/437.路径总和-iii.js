@@ -20,20 +20,27 @@
  */
 var pathSum = function (root, targetSum) {
   let count = 0
-  const dfs = (root, sum) => {
-    if (!root) return
+  let set = new Set()
+  const dfs = (node, sum, flag) => {
+    if (!node) return
+    if (flag && set.has(node)) return
 
-    let sum = sum + root.val
+    flag && set.add(node)
+
+    sum = sum + node.val
     if (sum === targetSum) {
       count++
     }
-    dfs(root.left, sum)
-    dfs(root.right, sum)
+    dfs(node.left, sum)
+    dfs(node.left, 0, true)
+    dfs(node.right, sum)
+    dfs(node.right, 0, true)
   }
-  return targetSum
+  dfs(root, 0, true)
+  return count
 }
 // @lc code=end
 
-import { gTree } from '../lib/tree.js'
+import { gTree } from '../../lib/tree.js'
 
-console.log(pathSum(gTree([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]), 5))
+console.log(pathSum(gTree([10, 5, -3, 3, 2, null, 11, 3, -2, null, 1]), 8))
