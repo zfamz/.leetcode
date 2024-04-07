@@ -1,8 +1,8 @@
-console.log(foo)
-function Person(name) {
-  this.name = name
-  return 'str'
+import { mergeSort } from './lib/sort.js'
+function main() {
+  const args = [9, 5, 32, 4, 7, 8, 12, 3, 23]
+  // const args = [9, 5, 32]
+  mergeSort(args, 0, args.length - 1)
+  console.log('🚀 ~ main ~ args:', args)
 }
-var temp = [1]
-let foo = new Person('js')
-console.log(foo)
+main()
