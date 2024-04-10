@@ -39,7 +39,7 @@ var flatten = function (root) {
   return root
 }
 // @lc code=end
-import { gTree } from './lib/tree.js'
+import { gTree } from '../../lib/tree.js'
 const args = [1, 2, 5, 3, 4, null, 6]
 console.log(flatten(gTree(args)))
 
