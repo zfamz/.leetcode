@@ -3,3 +3,7 @@
 > [leetcode](https://leetcode.cn/circle/discuss/mOr1u6/)
 
 - [前缀和](./31前缀和/0index.md)
+
+## other
+
+[Ketax symbol](https://katex.org/docs/supported.html)
