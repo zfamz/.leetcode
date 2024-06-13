@@ -17,8 +17,25 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function(root) {
+var levelOrder = function (root) {
+  let ans = []
+  if (!root) return ans
 
-};
+  let queue = [root]
+  while (queue.length) {
+    ans.push(queue.map((node) => node.val))
+    let n = queue.length
+    for (let i = 0; i < n; i++) {
+      let node = queue.shift()
+      node.left && queue.push(node.left)
+      node.right && queue.push(node.right)
+    }
+  }
+
+  return ans
+}
 // @lc code=end
-
+import { gTree } from '../../../lib/tree.js'
+const args = gTree([3, 9, 20, null, null, 15, 7])
+// const args = gTree([])
+console.log(levelOrder(args))
