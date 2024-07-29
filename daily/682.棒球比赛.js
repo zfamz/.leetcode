@@ -6,28 +6,64 @@
 
 // @lc code=start
 /**
- * @param {string[]} ops
+ * @param {string[]} operations
  * @return {number}
  */
-var calPoints = function (ops) {
-  const ans = []
-  ops.forEach((op) => {
-    const index = ans.length - 1
-    if (op === '+') {
-      ans.push(ans[index] + ans[index - 1])
-    } else if (op === 'D') {
-      ans.push(ans[index] * 2)
-    } else if (op === 'C') {
-      ans.pop()
-    } else {
-      ans.push(parseInt(op))
+var calPoints = function (operations) {
+  let n = operations.length
+  let arr = new Array(n).fill(0)
+  let index = 0
+  for (const char of operations) {
+    switch (char) {
+      case '+':
+        arr[index] = arr[index - 1] + arr[index - 2]
+        break
+      case 'D':
+        arr[index] = 2 * arr[index - 1]
+        break
+      case 'C':
+        arr[index - 1] = 0
+        index = index - 2
+        break
+      default:
+        arr[index] = parseInt(char)
+        break
     }
-  })
-  return ans.reduce((a, b) => a + b, 0)
+    index++
+  }
+  return arr.reduce((a, b) => {
+    return a + b
+  }, 0)
 }
 // @lc code=end
 
-// notes
-/**
- * parseInt 只需要默认分数的时候转换，就能保证数组内没有字符串
- */
+const args = ['5', '2', 'C', 'D', '+']
+console.log(calPoints(args))
+
+var calPoints_2 = function (operations) {
+  let n = operations.length
+  let arr = new Array(n).fill(0)
+  let index = 0
+  for (let i = 0; i < n; i++) {
+    switch (operations[i]) {
+      case '+':
+        arr[index] = arr[index - 1] + arr[index - 2]
+        break
+      case 'D':
+        arr[index] = 2 * arr[index - 1]
+        break
+      case 'C':
+        arr[index - 1] = 0
+        index = index - 2
+        break
+      default:
+        arr[index] = parseInt(operations[i])
+        break
+    }
+    index++
+  }
+  console.log(arr)
+  return arr.reduce((a, b) => {
+    return a + b
+  }, 0)
+}

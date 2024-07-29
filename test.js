@@ -16,3 +16,12 @@ var findKthSmallest = function (coins, k) {
 }
 const args = [[3, 6, 9], 3]
 console.log(findKthSmallest(...args))
+
+const test = (n) => {
+  let sum = 1
+  for (let i = 1; i <= n; i++) {
+    sum = sum * i
+  }
+  return sum
+}
+console.log(test(14))
